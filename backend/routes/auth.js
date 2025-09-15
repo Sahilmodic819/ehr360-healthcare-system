@@ -10,6 +10,21 @@ const bcrypt = require('bcrypt');
 
 function isDigits(str,len){ return /^\d+$/.test(str) && str.length===len; }
 
+// Auth API info endpoint
+router.get('/', (req, res) => {
+  res.json({
+    message: 'EHR360 Authentication API',
+    version: '1.0.0',
+    endpoints: {
+      'POST /register/patient': 'Register new patient',
+      'POST /register/doctor': 'Register new doctor', 
+      'POST /register/insurer': 'Register new insurer',
+      'POST /login': 'User login'
+    },
+    status: 'active'
+  });
+});
+
 // Patient registration
 router.post('/register/patient', async (req,res)=>{
   try {
