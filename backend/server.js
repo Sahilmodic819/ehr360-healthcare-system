@@ -25,6 +25,15 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/EHR360')
   .then(()=> console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'EHR360 Healthcare API is running!', 
+    version: '1.0.0',
+    endpoints: ['/api/auth', '/api/patients', '/api/doctors', '/api/insurers', '/api/claims']
+  });
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/notifications', notifications);
 app.use('/api/uploads/avatar', avatars);
