@@ -1,6 +1,6 @@
 
 // backend/server.js
-require('dotenv').config();
+require('dotenv').config({ path: __dirname + '/.env' });
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -20,6 +20,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Root route for testing
+app.get('/', (req, res) => {
+  res.json({ message: 'EHR360 Backend API is running!', status: 'success' });
+});
 
 mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/EHR360')
   .then(()=> console.log('MongoDB connected'))
